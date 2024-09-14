@@ -43,6 +43,6 @@ public class ShippoTest {
 			public boolean test(Rate rate) {
 				return rate.isTest();
 			}
-		}).findAny().orElseThrow();
+		}).findAny().orElseThrow(() -> new RuntimeException("Did not find test rate."));
 	}
 }

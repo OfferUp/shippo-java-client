@@ -1,5 +1,6 @@
 package com.shippo.model;
 
+import com.shippo.net.Credentials;
 import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -168,7 +169,7 @@ public final class Batch extends APIResource {
 		while (true) {
 			Map<String, Object> reqParams = new HashMap<String, Object>(params);
 			BatchCollection coll = request(RequestMethod.GET, classURL(Batch.class), reqParams, BatchCollection.class,
-					null);
+					Credentials.valueOf(null));
 			if (coll.array.length == 0) {
 				break;
 			}
@@ -214,7 +215,7 @@ public final class Batch extends APIResource {
 		params.put("default_servicelevel_token", serviceLevelToken);
 		params.put("label_filetype", labelFileType.toString());
 		params.put("batch_shipments", shipments);
-		return request(RequestMethod.POST, classURL(Batch.class), params, Batch.class, null);
+		return request(RequestMethod.POST, classURL(Batch.class), params, Batch.class, Credentials.valueOf(null));
 	}
 
 	public static enum ShipmentStatus {
@@ -259,7 +260,7 @@ public final class Batch extends APIResource {
 		if (objectResults != null) {
 			params.put("object_results", objectResults.toString());
 		}
-		return request(RequestMethod.GET, instanceURL(Batch.class, id), params, Batch.class, null);
+		return request(RequestMethod.GET, instanceURL(Batch.class, id), params, Batch.class, Credentials.valueOf(null));
 	}
 
 	private static class BatchShipmentId {
@@ -293,7 +294,7 @@ public final class Batch extends APIResource {
 		}
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("__list", array);
-		return request(RequestMethod.POST, instanceURL(Batch.class, id) + "/add_shipments", params, Batch.class, null);
+		return request(RequestMethod.POST, instanceURL(Batch.class, id) + "/add_shipments", params, Batch.class, Credentials.valueOf(null));
 	}
 
 	/**
@@ -314,7 +315,7 @@ public final class Batch extends APIResource {
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("__list", shipmentIds);
 		return request(RequestMethod.POST, instanceURL(Batch.class, id) + "/remove_shipments", params, Batch.class,
-				null);
+				Credentials.valueOf(null));
 	}
 
 	/**
@@ -328,7 +329,7 @@ public final class Batch extends APIResource {
 	 */
 	public static Batch purchase(String id)
 			throws AuthenticationException, InvalidRequestException, APIConnectionException, APIException {
-		return request(RequestMethod.POST, instanceURL(Batch.class, id) + "/purchase", null, Batch.class, null);
+		return request(RequestMethod.POST, instanceURL(Batch.class, id) + "/purchase", null, Batch.class, Credentials.valueOf(null));
 	}
 
 	public String getId() {

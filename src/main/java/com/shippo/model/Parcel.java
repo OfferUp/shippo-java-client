@@ -1,5 +1,6 @@
 package com.shippo.model;
 
+import com.shippo.net.Credentials;
 import java.util.Map;
 
 import com.shippo.exception.APIConnectionException;
@@ -47,26 +48,26 @@ public class Parcel extends APIResource {
 
 	public static Parcel create(Map<String, Object> params) throws AuthenticationException, InvalidRequestException,
 			APIConnectionException, APIException {
-		return create(params, null);
+		return create(params, Credentials.valueOf(null));
 	}
 
 	public String getInstanceURL() {
 		return "";
 	}
 
-	public static Parcel create(Map<String, Object> params, String apiKey) throws AuthenticationException,
+	public static Parcel create(Map<String, Object> params, Credentials credentials) throws AuthenticationException,
 			InvalidRequestException, APIConnectionException, APIException {
-		return request(RequestMethod.POST, classURL(Parcel.class), params, Parcel.class, apiKey);
+		return request(RequestMethod.POST, classURL(Parcel.class), params, Parcel.class, credentials);
 	}
 
 	public static Parcel retrieve(String id) throws AuthenticationException, InvalidRequestException,
 			APIConnectionException, APIException {
-		return retrieve(id, null);
+		return retrieve(id, Credentials.valueOf(null));
 	}
 
-	public static Parcel retrieve(String id, String apiKey) throws AuthenticationException, InvalidRequestException,
+	public static Parcel retrieve(String id, Credentials credentials) throws AuthenticationException, InvalidRequestException,
 			APIConnectionException, APIException {
-		return request(RequestMethod.GET, instanceURL(Parcel.class, id), null, Parcel.class, apiKey);
+		return request(RequestMethod.GET, instanceURL(Parcel.class, id), null, Parcel.class, credentials);
 	}
 
 	public static ParcelCollection all(Map<String, Object> params) throws AuthenticationException,

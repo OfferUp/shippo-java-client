@@ -1,5 +1,6 @@
 package com.shippo.model;
 
+import com.shippo.net.Credentials;
 import java.util.Map;
 
 import com.shippo.exception.APIConnectionException;
@@ -22,17 +23,17 @@ public class Refund extends APIResource {
 
     public static Refund create(Map<String, Object> params) throws AuthenticationException, InvalidRequestException,
             DuplicateRefundRequestException, APIConnectionException, APIException {
-        return create(params, null);
+        return create(params, Credentials.valueOf(null));
     }
 
     public String getInstanceURL() {
         return "";
     }
 
-    public static Refund create(Map<String, Object> params, String apiKey) throws AuthenticationException,
+    public static Refund create(Map<String, Object> params, Credentials credentials) throws AuthenticationException,
             InvalidRequestException, DuplicateRefundRequestException, APIConnectionException, APIException {
         try {
-            return request(RequestMethod.POST, classURL(Refund.class), params, Refund.class, apiKey);
+            return request(RequestMethod.POST, classURL(Refund.class), params, Refund.class, credentials);
         } catch (InvalidRequestException ex) {
             if (ex.getMessage().contains(DuplicateRefundRequestException.refundMessagePattern)) {
                 throw new DuplicateRefundRequestException(ex.getMessage(), ex.getParam(), ex);

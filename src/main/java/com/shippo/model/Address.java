@@ -1,5 +1,6 @@
 package com.shippo.model;
 
+import com.shippo.net.Credentials;
 import java.util.Map;
 import java.util.List;
 
@@ -101,12 +102,12 @@ public class Address extends APIResource {
 
 	public static Address create(Map<String, Object> params) throws AuthenticationException, InvalidRequestException,
 			APIConnectionException, APIException {
-		return create(params, null);
+		return create(params, Credentials.valueOf(null));
 	}
 
-	public static Address create(Map<String, Object> params, String apiKey) throws AuthenticationException,
+	public static Address create(Map<String, Object> params, Credentials credentials) throws AuthenticationException,
 			InvalidRequestException, APIConnectionException, APIException {
-		return request(RequestMethod.POST, classURL(Address.class), params, Address.class, apiKey);
+		return request(RequestMethod.POST, classURL(Address.class), params, Address.class, credentials);
 	}
 
 	public static Address retrieve(String id) throws AuthenticationException, InvalidRequestException,

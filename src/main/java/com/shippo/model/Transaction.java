@@ -1,5 +1,6 @@
 package com.shippo.model;
 
+import com.shippo.net.Credentials;
 import java.util.Map;
 
 import com.shippo.Shippo;
@@ -31,33 +32,32 @@ public class Transaction extends APIResource {
 	public static Transaction create(Map<String, Object> params)
 			throws AuthenticationException, InvalidRequestException,
 			APIConnectionException, APIException {
-		return create(params, null);
+		return create(params, Credentials.valueOf(null));
 	}
 
 	public String getInstanceURL() {
 		return "";
 	}
 
-	public static Transaction create(Map<String, Object> params, String apiKey)
+	public static Transaction create(Map<String, Object> params, Credentials credentials)
 			throws AuthenticationException, InvalidRequestException,
 			APIConnectionException, APIException {
 		return request(RequestMethod.POST, classURL(Transaction.class), params,
-				Transaction.class, apiKey);
+				Transaction.class, credentials);
 	}
 
 	public static Transaction createSync(Map<String, Object> params)
 			throws AuthenticationException, InvalidRequestException,
 			APIConnectionException, APIException, RequestTimeoutException {
-		return createSync(params, null);
+		return createSync(params, Credentials.valueOf(null));
 	}
 
-	public static Transaction createSync(Map<String, Object> params,
-			String apiKey) throws AuthenticationException,
+	public static Transaction createSync(Map<String, Object> params, final Credentials credentials) throws AuthenticationException,
 			InvalidRequestException, APIConnectionException, APIException,
 			RequestTimeoutException {
 
 		Transaction transaction = request(RequestMethod.POST,
-				classURL(Transaction.class), params, Transaction.class, apiKey);
+				classURL(Transaction.class), params, Transaction.class, credentials);
 		String object_id = transaction.objectId;
 		String status = transaction.status;
 		long startTime = System.currentTimeMillis();
