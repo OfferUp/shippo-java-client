@@ -1,5 +1,6 @@
 package com.shippo.model;
 
+import com.shippo.net.Credentials;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -43,18 +44,17 @@ public class Shipment extends APIResource {
 	public static Shipment create(Map<String, Object> params)
 			throws AuthenticationException, InvalidRequestException,
 			APIConnectionException, APIException {
-		return create(params, null);
+		return create(params, Credentials.valueOf(null));
 	}
 
 	public String getInstanceURL() {
 		return "";
 	}
 
-	public static Shipment create(Map<String, Object> params, String apiKey)
+	public static Shipment create(Map<String, Object> params, final Credentials credentials)
 			throws AuthenticationException, InvalidRequestException,
 			APIConnectionException, APIException {
-		return request(RequestMethod.POST, classURL(Shipment.class), params,
-				Shipment.class, apiKey);
+		return request(RequestMethod.POST, classURL(Shipment.class), params, Shipment.class, credentials);
 	}
 
 	public static RateCollection getShippingRatesSync(String object_id)
